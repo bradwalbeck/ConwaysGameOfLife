@@ -16,10 +16,6 @@ namespace ConwaysGameOfLife
             NeighborCount = 0;
         }
 
-        public void neighborCountIncarment() {
-            NeighborCount++;
-        }
-
         public int LocationX
         {
             get

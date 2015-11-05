@@ -38,12 +38,31 @@ namespace ConwaysGameOfLifeTest
             CollectionAssert.AreEqual(testCellsExpected, lifeCycle.Cells);
         }
 
+        // Blinker
+        //   1 2 3    1 2 3             
+        // 1   x    1           
+        // 2   x    2 x x x      
+        // 3   x    3                      
+
         [TestMethod]
-        public void LifeCycleCycleTest()
+        public void LifeCycleCycleTestBlinker()
         {
-            LifeCycle lifeCycle = new LifeCycle();
+
+            List<Cell> blinkerTextCellsVertical = new List<Cell>();
+            blinkerTextCellsVertical.Add(new Cell(2, 1));
+            blinkerTextCellsVertical.Add(new Cell(2, 2));
+            blinkerTextCellsVertical.Add(new Cell(2, 3));
+
+            List<Cell> blinkerTextCellsHorizonal = new List<Cell>();
+            blinkerTextCellsHorizonal.Add(new Cell(1, 2));
+            blinkerTextCellsHorizonal.Add(new Cell(2, 2));
+            blinkerTextCellsHorizonal.Add(new Cell(3, 2));
+
+            LifeCycle lifeCycle = new LifeCycle(blinkerTextCellsVertical);
+
             lifeCycle.Cycle();
-            CollectionAssert.AreEqual(new List<Cell>(), lifeCycle.Cells);
+
+            CollectionAssert.AreEqual(blinkerTextCellsHorizonal, lifeCycle.Cells);
         }
     }
 }

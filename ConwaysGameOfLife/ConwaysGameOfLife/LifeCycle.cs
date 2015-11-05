@@ -32,12 +32,49 @@ namespace ConwaysGameOfLife
         }
         
         public void Cycle() {
-            //List<Cell> newCells = new List<Cell>();
-            //foreach (Cell cell in cells) {
-            //
-            //}
+            List<Cell> newCells = new List<Cell>();
+            List<Cell> neighborCells;
+            List<Cell> neighborsOfNeighborCells;
+            foreach (Cell cell in cells)
+            {
+                neighborCells = getNeighborCells(cell);
+                cell.NeighborCount = getNeighborCellCount(neighborCells);
+                //check for survival
+                if (cell.NeighborCount == 2 || cell.NeighborCount == 3) {
+                    newCells.Add(cell); //TODO: THIS NEEDS TO BE CHECKED FOR UNIQUES
+                }
+                //check for neighbor birth
+                foreach (Cell neighborCell in neighborCells) {
+                    neighborsOfNeighborCells = getNeighborCells(neighborCell);
+                    neighborCell.NeighborCount = getNeighborCellCount(neighborsOfNeighborCells);
+                    if (cell.NeighborCount == 3)
+                    {
+                        newCells.Add(neighborCell); //TODO: THIS NEEDS TO BE CHECKED FOR UNIQUES
+                    }
+                }
+            }
+            cells = newCells;
+        }
+
+        private int getNeighborCellCount(List<Cell> neighborCells) {
+            return cells.Intersect(neighborCells).Count(); //THIS DOESNT WORK;
+        }
 
 
+        private static List<Cell> getNeighborCells(Cell cell)
+        {
+            var neighborCells = new List<Cell>();
+            var currentCellX = cell.LocationX;
+            var currentCellY = cell.LocationY;
+            neighborCells.Add(new Cell(currentCellX + 1, currentCellY + 1));
+            neighborCells.Add(new Cell(currentCellX + 1, currentCellY));
+            neighborCells.Add(new Cell(currentCellX + 1, currentCellY - 1));
+            neighborCells.Add(new Cell(currentCellX, currentCellY + 1));
+            neighborCells.Add(new Cell(currentCellX, currentCellY - 1));
+            neighborCells.Add(new Cell(currentCellX - 1, currentCellY + 1));
+            neighborCells.Add(new Cell(currentCellX - 1, currentCellY));
+            neighborCells.Add(new Cell(currentCellX - 1, currentCellY - 1));
+            return neighborCells;
         }
     }
 }
