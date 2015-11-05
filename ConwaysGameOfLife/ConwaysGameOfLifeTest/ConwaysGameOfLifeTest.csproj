@@ -45,13 +45,22 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="CellTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LifeCycleTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConwaysGameOfLife\ConwaysGameOfLife.csproj">
+      <Project>{407d7a87-5cda-4613-921b-4858804c8398}</Project>
+      <Name>ConwaysGameOfLife</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
