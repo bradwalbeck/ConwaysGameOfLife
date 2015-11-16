@@ -38,6 +38,25 @@ namespace ConwaysGameOfLifeTest
             CollectionAssert.AreEqual(testCellsExpected, lifeCycle.Cells);
         }
 
+        [TestMethod]
+        public void LifeCycleGetNeighborCellCountTest(List<Cell> neighborCells) {
+            List<Cell> getNeighborCellCountCells = new List<Cell>();
+            getNeighborCellCountCells.Add(new Cell(2, 1));
+            getNeighborCellCountCells.Add(new Cell(2, 2));
+            getNeighborCellCountCells.Add(new Cell(2, 3));
+
+            List<Cell> blinkerTextCellsHorizonal = new List<Cell>();
+            blinkerTextCellsHorizonal.Add(new Cell(1, 2));
+            blinkerTextCellsHorizonal.Add(new Cell(2, 2));
+            blinkerTextCellsHorizonal.Add(new Cell(3, 2));
+
+            LifeCycle lifeCycle = new LifeCycle(blinkerTextCellsVertical);
+            lifeCycle.getNeighborCellCount
+
+        }
+
+
+
         // Blinker
         //   1 2 3    1 2 3             
         // 1   x    1           

@@ -56,12 +56,12 @@ namespace ConwaysGameOfLife
             cells = newCells;
         }
 
-        private int getNeighborCellCount(List<Cell> neighborCells) {
+        public int getNeighborCellCount(List<Cell> neighborCells) {
             return cells.Intersect(neighborCells).Count(); //THIS DOESNT WORK;
         }
 
 
-        private static List<Cell> getNeighborCells(Cell cell)
+        public List<Cell> getNeighborCells(Cell cell)
         {
             var neighborCells = new List<Cell>();
             var currentCellX = cell.LocationX;
