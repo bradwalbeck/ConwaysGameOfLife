@@ -1,5 +1,4 @@
-﻿using System;
-using ConwaysGameOfLife;
+﻿using ConwaysGameOfLife;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ConwaysGameOfLifeTest
