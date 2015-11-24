@@ -41,15 +41,22 @@ namespace ConwaysGameOfLife
                 cell.NeighborCount = getNeighborCellCount(neighborCells);
                 //check for survival
                 if (cell.NeighborCount == 2 || cell.NeighborCount == 3) {
-                    newCells.Add(cell); //TODO: THIS NEEDS TO BE CHECKED FOR UNIQUES
+                    if (!checkCellCollectionForCell(newCells, cell))
+                    {
+                        newCells.Add(cell);
+                    }
+                    
                 }
                 //check for neighbor birth
                 foreach (Cell neighborCell in neighborCells) {
                     neighborsOfNeighborCells = getNeighborCells(neighborCell);
                     neighborCell.NeighborCount = getNeighborCellCount(neighborsOfNeighborCells);
-                    if (cell.NeighborCount == 3)
+                    if (neighborCell.NeighborCount == 3)
                     {
-                        newCells.Add(neighborCell); //TODO: THIS NEEDS TO BE CHECKED FOR UNIQUES
+                        if (!checkCellCollectionForCell(newCells, neighborCell))
+                        {
+                            newCells.Add(neighborCell);
+                        }
                     }
                 }
             }
@@ -57,9 +64,29 @@ namespace ConwaysGameOfLife
         }
 
         public int getNeighborCellCount(List<Cell> neighborCells) {
-            return cells.Intersect(neighborCells).Count(); //THIS DOESNT WORK;
+            int neighborCellCount = 0;
+            foreach (Cell neighborCell in neighborCells)
+            {
+                if (checkCellCollectionForCell(cells, neighborCell))
+                {
+                    neighborCellCount++;
+                }
+            }
+            return neighborCellCount;
         }
 
+        public bool checkCellCollectionForCell(List<Cell> cellCollection, Cell cellInQuestion)
+        {
+            foreach (Cell cell in cellCollection)
+            {
+                if (cellInQuestion.LocationX == cell.LocationX && cellInQuestion.LocationY == cell.LocationY)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public List<Cell> getNeighborCells(Cell cell)
         {
