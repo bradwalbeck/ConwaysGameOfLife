@@ -4,12 +4,18 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLifeTest
 {
+
+    /// <summary>
+    /// Test class for ConwaysGameOfLife.LifeCycle class.
+    /// </summary>
+
     [TestClass]
     public class LifeCycleTest
     {
-        Cell cell1 = new Cell(1, 2);
-        Cell cell2 = new Cell(3, 4);
-        Cell cell3 = new Cell(5, 6);
+
+        /// <summary>
+        /// 
+        /// </summary>
 
         [TestMethod]
         public void LifeCycleDefaultConstructorTest()
@@ -18,9 +24,16 @@ namespace ConwaysGameOfLifeTest
             CollectionAssert.AreEqual(new List<Cell>(), lifeCycle.Cells);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+
         [TestMethod]
         public void LifeCycleListConstructorTest()
         {
+            Cell cell1 = new Cell(1, 2);
+            Cell cell2 = new Cell(3, 4);
+            Cell cell3 = new Cell(5, 6);
 
             List<Cell> testCellsExpected = new List<Cell>();
             testCellsExpected.Add(cell1);
@@ -37,20 +50,29 @@ namespace ConwaysGameOfLifeTest
             CollectionAssert.AreEqual(testCellsExpected, lifeCycle.Cells);
         }
 
+        /// <summary>
+        /// Tests LifeCycle.checkCellCollectionForCell().
+        /// </summary>
+
         [TestMethod()]
         public void CheckCellCollectionForCellTest()
         {
-            LifeCycle lifeCycle = new LifeCycle();
+            List<Cell> checkCellCollectionForCellTestCells = new List<Cell>();
+            checkCellCollectionForCellTestCells.Add(new Cell(1, 2));
+            checkCellCollectionForCellTestCells.Add(new Cell(111, 55));
+            checkCellCollectionForCellTestCells.Add(new Cell(3, 2));
 
-            List<Cell> shouldBeTrueCells = new List<Cell>();
-            shouldBeTrueCells.Add(new Cell(1, 2));
-            shouldBeTrueCells.Add(new Cell(111, 55));
-            shouldBeTrueCells.Add(new Cell(3, 2));
+            LifeCycle lifeCycle = new LifeCycle(checkCellCollectionForCellTestCells);
 
-            Assert.IsFalse(lifeCycle.checkCellCollectionForCell(new List<Cell>(), new Cell(0, 0)));
-            Assert.IsTrue(lifeCycle.checkCellCollectionForCell(shouldBeTrueCells, new Cell(111, 55)));
+            Assert.IsFalse(lifeCycle.checkCellCollectionForCell(lifeCycle.Cells, new Cell(0, 0)));
+            Assert.IsTrue(lifeCycle.checkCellCollectionForCell(lifeCycle.Cells, new Cell(111, 55)));
 
         }
+
+
+        /// <summary>
+        /// Tests LifeCycle.GetNeighborCell().
+        /// </summary>
 
         [TestMethod]
         public void LifeCycleGetNeighborCellTest()
@@ -79,6 +101,10 @@ namespace ConwaysGameOfLifeTest
             Assert.IsFalse(lifeCycle.checkCellCollectionForCell(getNeighborCellsTestCells, new Cell(1, 1)));
         }
 
+        /// <summary>
+        /// Tests LifeCycle.GetNeighborCellCount().
+        /// </summary>
+
         [TestMethod]
         public void LifeCycleGetNeighborCellCountTest()
         {
@@ -98,12 +124,18 @@ namespace ConwaysGameOfLifeTest
         }
 
 
-
-        // Blinker
-        //   1 2 3    1 2 3             
-        // 1   x    1           
-        // 2   x    2 x x x      
-        // 3   x    3                      
+        /// <summary>
+        /// Blinker (period 2) - Simple Oscillator
+        /// Test to ensure that well known simple oscillator patterns behave as expected. 
+        /// See image for expected permutations:
+        /// ./testPatternImages/Game_of_life_blinker.gif
+        ///
+        ///   1 2 3    1 2 3             
+        /// 1   x    1           
+        /// 2   x    2 x x x      
+        /// 3   x    3                      
+        /// 
+        /// </summary>
 
         [TestMethod]
         public void LifeCycleCycleTestBlinker()
@@ -136,12 +168,20 @@ namespace ConwaysGameOfLifeTest
             Assert.IsTrue(lifeCycle.Cells.Count == 3);
         }
 
-        // Block; still life
-        //   6 7 8 9                
-        // 4             
-        // 5   x x        
-        // 6   x x                  
-        // 7
+
+        /// <summary>
+        /// Block - Still lifes
+        /// Test to ensure that well known still life patterns behave as expected. 
+        /// See image for expected permutations:
+        /// ./testPatternImages/Game_of_life_block_with_border.svg
+        /// 
+        ///   6 7 8 9                
+        /// 4             
+        /// 5   x x        
+        /// 6   x x                  
+        /// 7
+        /// 
+        /// </summary>
 
         [TestMethod]
         public void LifeCycleCycleTestBlock()
